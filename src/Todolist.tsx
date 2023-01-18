@@ -35,6 +35,10 @@ export const Todolist = (props: PropsType) => {
         }
     }
 
+    const removeTaskHandler=(taskID:string)=>{
+        props.removeTask(taskID)
+    }
+
     const uniFilterHandler = (nameButton:FilterValuesType) => {
 props.changeFilter(nameButton)
     }
@@ -62,10 +66,14 @@ props.changeFilter(nameButton)
                                        key={task.id}
                                        checked={task.isDone}/>
                                 <span>{task.title}</span>
-                                <button onClick={() => {
-                                    props.removeTask(task.id)
-                                }}>x
-                                </button>
+
+                                <Button name={'X'} callBack={()=>removeTaskHandler(task.id)}/>
+
+                                {/*<button onClick={() => {*/}
+                                {/*    props.removeTask(task.id)*/}
+                                {/*}}>x*/}
+                                {/*</button>*/}
+
                             </li>
 
                         )
