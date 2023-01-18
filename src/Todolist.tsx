@@ -1,5 +1,6 @@
-import React, {ChangeEvent, useState} from "react";
+import React, {ChangeEvent, KeyboardEvent, useState} from "react";
 import {FilterValuesType} from "./App";
+import {Button} from "./Components/Button";
 
 export type TaskType = {
     id: string
@@ -18,24 +19,34 @@ type PropsType = {
 
 export const Todolist = (props: PropsType) => {
     let [title, setTitle] = useState('')
+
     const addTask = () => {
         props.addTask(title)
         setTitle('')
     }
+
+    const onChangeHandler = (event: ChangeEvent<HTMLInputElement>) => {
+        setTitle(event.currentTarget.value)
+    }
+
+    const onKeyPressHandler = (event: KeyboardEvent<HTMLInputElement>) => {
+        if (event.key === 'Enter') {
+            addTask()
+        }
+    }
+
+    const uniFilterHandler = (nameButton:FilterValuesType) => {
+props.changeFilter(nameButton)
+    }
+
     return (
         <div>
             <h3>{props.title}</h3>
             <div>
                 <input
                     value={title}
-                    onChange={(event: ChangeEvent<HTMLInputElement>) => {
-                        setTitle(event.currentTarget.value)
-                    }}
-                        onKeyPress={(event)=>{
-                            if(event.key==='Enter') {
-                                addTask()
-                            }
-                        }}
+                    onChange={onChangeHandler}
+                    onKeyPress={onKeyPressHandler}
                 />
                 <button onClick={() => {
                     props.addTask(title)
@@ -63,18 +74,9 @@ export const Todolist = (props: PropsType) => {
             </ul>
 
             <div>
-                <button onClick={() => {
-                    props.changeFilter("all")
-                }}>All
-                </button>
-                <button onClick={() => {
-                    props.changeFilter("active")
-                }}>Active
-                </button>
-                <button onClick={() => {
-                    props.changeFilter("completed")
-                }}>Completed
-                </button>
+                <Button name={'completed'} callBack={()=>{uniFilterHandler('completed')}} />
+                <Button name={'all'} callBack={()=>{uniFilterHandler('all')}} />
+                <Button name={'active'} callBack={()=>{uniFilterHandler('active')}} />
             </div>
         </div>
     )
