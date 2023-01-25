@@ -20,14 +20,17 @@ type PropsType = {
 export function Todolist(props: PropsType) {
 
     let [title, setTitle] = useState("")
-    const [error, setError] = useState<string | null>(null)
+    let [error, setError] = useState<string | null>(null)
 
     const addTask = () => {
+
+        console.log({error})
+
         if (title.trim() !== '') {
             props.addTask(title.trim());
             setTitle("");
         } else {
-            setTitle("Title is required")
+            setError('Title is required')
         }
 
     }
