@@ -1,5 +1,6 @@
 import React, {ChangeEvent, KeyboardEvent, useState} from 'react';
 import {FilterValuesType} from './App';
+import {Button} from "./Components/Button";
 
 type TaskType = {
     id: string
@@ -46,6 +47,14 @@ export function Todolist(props: PropsType) {
         }
     }
 
+    const removeTaskHandler=(taskID:string)=>{
+        props.removeTask(taskID)
+    }
+
+    const uniFilterHandler = (nameButton:FilterValuesType) => {
+        props.changeFilter(nameButton)
+    }
+
     const onAllClickHandler = () => props.changeFilter("all");
     const onActiveClickHandler = () => props.changeFilter("active");
     const onCompletedClickHandler = () => props.changeFilter("completed");
@@ -58,7 +67,11 @@ export function Todolist(props: PropsType) {
                    onKeyPress={onKeyPressHandler}
                    className={error ? 'error' : ''}
             />
-            <button onClick={addTask}>+</button>
+            {/*<button onClick={addTask}>+</button>*/}
+            {/*<button onClick={() => {props.addTask(title)}}>+</button>*/}
+            {/*c компонентой через callBack*/}
+            <Button name={'+'} callBack={()=>addTask()} />
+
             {error && <div className='error-message'>{error}</div>}
         </div>
         <ul>
@@ -78,15 +91,27 @@ export function Todolist(props: PropsType) {
                                onChange={changeStatusHandler}
                         />
                         <span>{t.title}</span>
-                        <button onClick={onClickHandler}>x</button>
+
+                        <Button name={'X'} callBack={()=>removeTaskHandler(t.id)}/>
+                        {/*<button onClick={onClickHandler}>x</button>*/}
+
+
                     </li>
                 })
             }
         </ul>
         <div>
+
+
+            <Button name={'completed'} callBack={()=>{uniFilterHandler('completed')}} />
+            <Button name={'all'} callBack={()=>{uniFilterHandler('all')}} />
+            <Button name={'active'} callBack={()=>{uniFilterHandler('active')}} />
+
+            {/*перенести className в Button с uniFilterHandler*/}
             <button className={props.filter === 'all' ? 'active-filter':''} onClick={onAllClickHandler}>All</button>
             <button className={props.filter === 'active' ? 'active-filter':''} onClick={onActiveClickHandler}>Active</button>
             <button className={props.filter === 'completed' ? 'active-filter':''} onClick={onCompletedClickHandler}>Completed</button>
+
         </div>
     </div>
 }
