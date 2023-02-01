@@ -42,13 +42,13 @@ function App() {
     // let [filter, setFilter] = useState<FilterValuesType>("all");
 
     function changeFilter(value: FilterValuesType, todolistId: string) {
-        debugger
-        // let todolist = todolists.find(tl => tl.id === todolistId);
-        // if (todolist))
-        // {
-        //     todolist.filter = value;
-        //     setTodolists([...todolists]);
-        // }
+        // debugger
+        let todolist = todolists.find(tl => tl.id === todolistId);
+        if (todolist)
+        {
+            todolist.filter = value;
+            setTodolists([...todolists]);
+        }
     }
 
     let [todolists, setTodolists] = useState<Array<TodolistsType>>([
