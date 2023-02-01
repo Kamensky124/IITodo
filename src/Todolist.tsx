@@ -12,10 +12,10 @@ type PropsType = {
     id: string
     title: string
     tasks: Array<TaskType>
-    removeTask: (taskId: string) => void
+    removeTask: (taskId: string, todolistId:string) => void
     changeFilter: (value: FilterValuesType, todolistId:string) => void
-    addTask: (title: string) => void
-    changeStatus: (id: string, eventStatus: boolean) => void
+    addTask: (title: string, todolistId:string) => void
+    changeStatus: (id: string, eventStatus: boolean, todolistId:string) => void
     filter: FilterValuesType
 }
 
@@ -29,7 +29,7 @@ export function Todolist(props: PropsType) {
         console.log({error})
 
         if (title.trim() !== '') {
-            props.addTask(title.trim());
+            props.addTask(title.trim(), props.id);
             setTitle("");
         } else {
             setError('Title is required')
@@ -49,7 +49,7 @@ export function Todolist(props: PropsType) {
     }
 
     const removeTaskHandler=(taskID:string)=>{
-        props.removeTask(taskID)
+        props.removeTask(taskID, props.id))
     }
 
     // const uniFilterHandler = (nameButton:FilterValuesType) => {
@@ -82,7 +82,7 @@ export function Todolist(props: PropsType) {
                     const onClickHandler = () => props.removeTask(t.id)
 
                     const changeStatusHandler = (event: ChangeEvent<HTMLInputElement>) => {
-                        props.changeStatus(t.id, event.currentTarget.checked)
+                        props.changeStatus(t.id, event.currentTarget.checked, props.id))
                     }
 
                     return <li key={t.id}
