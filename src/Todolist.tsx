@@ -19,7 +19,9 @@ type PropsType = {
     addTask: (title: string, todolistId: string) => void
     changeStatus: (id: string, eventStatus: boolean, todolistId: string) => void
     filter: FilterValuesType
-    removeTodolist: (todolistId: string) => void
+    removeTodolist: (todolistId: string) => void,
+    changeTodolistTitle: (todolistId: string, newTitle:string) =>void,
+    changeTaskTitle: (id: string, newTitle: string, todolistId: string) => void
 }
 
 export function Todolist(props: PropsType) {
@@ -34,13 +36,17 @@ export function Todolist(props: PropsType) {
     const removeTodolist = () => {
         props.removeTodolist(props.id)
     }
+    const changeTodolistTitle = (newTitle:string) => {
+        props.changeTodolistTitle(props.id, newTitle)
+    }
 
     const addTask = (title: string) => {
         props.addTask(title, props.id)
     }
 
     return <div>
-        <h3>{props.title}
+        <h3>
+            <EditableSpan title={props.title} onChange={changeTodolistTitle} />
             <button onClick={removeTodolist}>X</button>
         </h3>
         <div>
@@ -56,6 +62,10 @@ export function Todolist(props: PropsType) {
                         props.changeStatus(t.id, event.currentTarget.checked, props.id)
                     }
 
+                    const changeTitleHandler = (newValue:string) => {
+                        props.changeTaskTitle(t.id, newValue, props.id)
+                    }
+
                     return <li key={t.id}
                                className={t.isDone ? 'is-done' : ''}>
                         <input type="checkbox"
@@ -63,7 +73,10 @@ export function Todolist(props: PropsType) {
                                onChange={changeStatusHandler}
                         />
 
-                        <EditableSpan title={t.title}/>
+                        <EditableSpan
+                            title={t.title}
+                            onChange={changeTitleHandler}
+                        />
 
                         <Button name={'X'} callBack={() => removeTaskHandler(t.id)}/>
 
