@@ -1,6 +1,7 @@
-import React, {ChangeEvent, KeyboardEvent, useState} from 'react';
+import React, {ChangeEvent} from 'react';
 import {FilterValuesType} from './App';
 import {Button} from "./Components/Button";
+import {AddItemForm} from "./Components/AddItemForm";
 
 export type TaskType = {
     id: string
@@ -22,40 +23,9 @@ type PropsType = {
 
 export function Todolist(props: PropsType) {
 
-    let [title, setTitle] = useState("")
-    let [error, setError] = useState<string | null>(null)
-
-    const addTask = () => {
-
-        console.log({error})
-
-        if (title.trim() !== '') {
-            props.addTask(title.trim(), props.id);
-            setTitle("");
-        } else {
-            setError('Title is required')
-        }
-
-    }
-
-    const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
-        setTitle(e.currentTarget.value)
-    }
-
-    const onKeyPressHandler = (e: KeyboardEvent<HTMLInputElement>) => {
-        setError(null)
-        if (e.charCode === 13) {
-            addTask();
-        }
-    }
-
     const removeTaskHandler = (taskID: string) => {
         props.removeTask(taskID, props.id)
     }
-
-    // const uniFilterHandler = (nameButton:FilterValuesType) => {
-    //     props.changeFilter(nameButton)
-    // }
 
     const onAllClickHandler = () => props.changeFilter("all", props.id);
     const onActiveClickHandler = () => props.changeFilter("active", props.id);
@@ -64,21 +34,17 @@ export function Todolist(props: PropsType) {
         props.removeTodolist(props.id)
     }
 
+    const addTask = (title: string) => {
+        props.addTask(title, props.id)
+    }
+
     return <div>
-        <h3>{props.title}<button onClick={removeTodolist}>X</button></h3>
-
+        <h3>{props.title}
+            <button onClick={removeTodolist}>X</button>
+        </h3>
         <div>
-            <input value={title}
-                   onChange={onChangeHandler}
-                   onKeyPress={onKeyPressHandler}
-                   className={error ? 'error' : ''}
-            />
-            {/*<button onClick={addTask}>+</button>*/}
-            {/*<button onClick={() => {props.addTask(title)}}>+</button>*/}
-            {/*c компонентой через callBack*/}
-            <Button name={'+'} callBack={() => addTask()}/>
-
-            {error && <div className='error-message'>{error}</div>}
+            AddItem
+            <AddItemForm addItem={addTask}/>
         </div>
         <ul>
             {
@@ -99,8 +65,6 @@ export function Todolist(props: PropsType) {
                         <span>{t.title}</span>
 
                         <Button name={'X'} callBack={() => removeTaskHandler(t.id)}/>
-                        {/*<button onClick={onClickHandler}>x</button>*/}
-
 
                     </li>
                 })
@@ -124,3 +88,4 @@ export function Todolist(props: PropsType) {
         </div>
     </div>
 }
+
