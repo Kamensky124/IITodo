@@ -3,7 +3,7 @@ type PropsType = {
     callBack: ()=>void
 }
 
-export const Button = (props: PropsType) => {
+export const ButtonAK = (props: PropsType) => {
     const onClickHandler = () => {
         props.callBack()
     }

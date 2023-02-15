@@ -1,5 +1,9 @@
 import React, {ChangeEvent, KeyboardEvent, useState} from "react";
-import {Button} from "./Button";
+import {ButtonAK} from "./ButtonAK";
+import Button from "@mui/material/Button";
+import TextField from "@mui/material/TextField";
+import IconButton from "@mui/material/IconButton";
+import AddBox from "@mui/icons-material/AddBox";
 
 type AddItemFormPropsType = {
     addItem: (title: string) => void
@@ -32,12 +36,26 @@ export function AddItemForm(props: AddItemFormPropsType) {
     }
 
     return <div>
-        <input value={title}
-               onChange={onChangeHandler}
-               onKeyPress={onKeyPressHandler}
-               className={error ? 'error' : ''}
+        <TextField variant ='outlined'
+                   value={title}
+                   onChange={onChangeHandler}
+                   onKeyPress={onKeyPressHandler}
+                   error={!!error}
+                   label='Title'
+                   helperText={error}
         />
-        <Button name={'+'} callBack={() => addTask()}/>
+        {/*Чтобы добавить ошибку в TextField, нужно задать ему в пропсы error={true} (вместо true мы передаем значение нашей переменной, преобразованное с помощью !! в булево значение по правилам псевдоистины и псевдолжи)*/}
+
+        {/*From mui*/}
+        <IconButton
+            // style={{maxWidth: '30px', maxHeight: '30px', minWidth: '30px', minHeight: '30px', color: 'green'}}
+            color='primary'
+            onClick={() => {addTask();}}>
+        <AddBox/>
+        </IconButton>
+
+        {/*<ButtonAK name={'+'} callBack={() => addTask()}/>*/}
+
         {error && <div className='error-message'>{error}</div>}
     </div>
 
