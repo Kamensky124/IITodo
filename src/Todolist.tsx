@@ -15,7 +15,7 @@ export type TaskType = {
     isDone: boolean
 }
 
-type PropsType = {
+export type TodolistType = {
     id: string
     title: string
     tasks: Array<TaskType>
@@ -29,7 +29,7 @@ type PropsType = {
     changeTaskTitle: (id: string, newTitle: string, todolistId: string) => void
 }
 
-export function Todolist(props: PropsType) {
+export function Todolist(props: TodolistType) {
 
     const removeTaskHandler = (taskID: string) => {
         props.removeTask(taskID, props.id)

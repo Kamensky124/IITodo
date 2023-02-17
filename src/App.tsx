@@ -17,11 +17,11 @@ export type FilterValuesType = "all" | "active" | "completed";
 
 function App() {
 
-    type TodolistsType = {
+export type TodolistsType = {
         id: string
         title: string
         filter: FilterValuesType
-    }
+    };
 
     let removeTodolist = (todolistId: string) => {
         setTodolists(todolists.filter(todolist => todolist.id !== todolistId));
@@ -34,7 +34,6 @@ function App() {
         if (todolist) {
             todolist.title = newTitle;
             setTodolists([...todolists])
-
         }
     }
 

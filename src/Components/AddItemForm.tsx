@@ -1,6 +1,5 @@
 import React, {ChangeEvent, KeyboardEvent, useState} from "react";
 import {ButtonAK} from "./ButtonAK";
-import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import IconButton from "@mui/material/IconButton";
 import AddBox from "@mui/icons-material/AddBox";
@@ -56,7 +55,8 @@ export function AddItemForm(props: AddItemFormPropsType) {
 
         {/*<ButtonAK name={'+'} callBack={() => addTask()}/>*/}
 
-        {error && <div className='error-message'>{error}</div>}
+        {/*отключаем показ div ошибки после ввода mui helpertext*/}
+        {/*{error && <div className='error-message'>{error}</div>}*/}
     </div>
 
 }
