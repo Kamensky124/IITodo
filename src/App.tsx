@@ -15,13 +15,13 @@ import Paper from "@mui/material/Paper";
 
 export type FilterValuesType = "all" | "active" | "completed";
 
-function App() {
-
 export type TodolistsType = {
-        id: string
-        title: string
-        filter: FilterValuesType
-    };
+    id: string
+    title: string
+    filter: FilterValuesType
+};
+
+function App() {
 
     let removeTodolist = (todolistId: string) => {
         setTodolists(todolists.filter(todolist => todolist.id !== todolistId));
