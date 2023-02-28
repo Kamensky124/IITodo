@@ -23,17 +23,31 @@ export type TodolistsType = {
 
 function App() {
 
-    let removeTodolist = (todolistId: string) => {
-        setTodolists(todolists.filter(todolist => todolist.id !== todolistId));
-        delete tasksObj[todolistId];
-        setTasks({...tasksObj})
+    type TaskStateType = {
+        [key: string]: Array<TaskType>
     }
 
-    function changeTodolistTitle(todolistId: string, newTitle: string) {
-        const todolist = todolists.find(todolist => todolist.id === todolistId);
-        if (todolist) {
-            todolist.title = newTitle;
-            setTodolists([...todolists])
+    let [tasksObj, setTasks] = useState<TaskStateType>({
+        [todolistId1]: [
+            {id: v1(), title: "HTML&CSS", isDone: true},
+            {id: v1(), title: "JS", isDone: true},
+            {id: v1(), title: "ReactJS", isDone: false},
+            {id: v1(), title: "Rest API", isDone: false},
+            {id: v1(), title: "GraphQL", isDone: false},
+        ],
+        [todolistId2]: [
+            {id: v1(), title: "Books", isDone: true},
+            {id: v1(), title: "Banana", isDone: false},
+            {id: v1(), title: "Skates", isDone: false}
+        ]
+    });
+
+    const changeTaskTitle = (newId: string, newTitle: string, todolistId: string) => {
+        let tasks = tasksObj[todolistId];
+        let task = tasks.find(t => t.id === newId);
+        if (task) {
+            task.title = newTitle;
+            setTasks({...tasksObj});
         }
     }
 
@@ -62,18 +76,7 @@ function App() {
 
     }
 
-    function changeFilter(value: FilterValuesType, todolistId: string) {
-        // debugger
-        let todolist = todolists.find(tl => tl.id === todolistId);
-        if (todolist) {
-            todolist.filter = value;
-            setTodolists([...todolists]);
-        }
-    }
-
-    type TaskStateType = {
-        [key: string]: Array<TaskType>
-    }
+    ////////////////////////////////
 
     let todolistId1 = v1();
     let todolistId2 = v1();
@@ -82,21 +85,6 @@ function App() {
         {id: todolistId1, title: "What to learn", filter: 'all'},
         {id: todolistId2, title: "What to buy", filter: 'all'}
     ]);
-
-    let [tasksObj, setTasks] = useState<TaskStateType>({
-        [todolistId1]: [
-            {id: v1(), title: "HTML&CSS", isDone: true},
-            {id: v1(), title: "JS", isDone: true},
-            {id: v1(), title: "ReactJS", isDone: false},
-            {id: v1(), title: "Rest API", isDone: false},
-            {id: v1(), title: "GraphQL", isDone: false},
-        ],
-        [todolistId2]: [
-            {id: v1(), title: "Books", isDone: true},
-            {id: v1(), title: "Banana", isDone: false},
-            {id: v1(), title: "Skates", isDone: false}
-        ]
-    });
 
     function AddTodoList(title: string) {
         let todolist: TodolistsType = {
@@ -112,16 +100,30 @@ function App() {
         })
     }
 
-
-    const changeTaskTitle = (newId: string, newTitle: string, todolistId: string) => {
-        let tasks = tasksObj[todolistId];
-        let task = tasks.find(t => t.id === newId);
-        if (task) {
-            task.title = newTitle;
-            setTasks({...tasksObj});
-        }
-
+    let removeTodolist = (todolistId: string) => {
+        setTodolists(todolists.filter(todolist => todolist.id !== todolistId));
+        delete tasksObj[todolistId];
+        setTasks({...tasksObj})
     }
+
+    function changeFilter(value: FilterValuesType, todolistId: string) {
+        // debugger
+        let todolist = todolists.find(tl => tl.id === todolistId);
+        if (todolist) {
+            todolist.filter = value;
+            setTodolists([...todolists]);
+        }
+    }
+
+    function changeTodolistTitle(todolistId: string, newTitle: string) {
+        const todolist = todolists.find(todolist => todolist.id === todolistId);
+        if (todolist) {
+            todolist.title = newTitle;
+            setTodolists([...todolists])
+        }
+    }
+
+    ////////////////////////////////////////
 
     return (
         <div className="App">
