@@ -7,7 +7,7 @@ type StateType = {
 }
 
 type ActionType = {
-    action: string
+    type: 'INCREMENT-AGE' | 'INCREMENT-CHILDREN-COUNT' | 'CHANGE-NAME'
     [key: string]: any
 }
 

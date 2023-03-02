@@ -1,6 +1,6 @@
 import {debug} from "console"
 import {TodolistType} from "../Todolist";
-import {FilterValuesType, TodolistsType} from "../App";
+import {FilterValuesType, TodolistShortType} from "../App";
 import {v1} from "uuid";
 
 //заглушка до определения четкого перечня экшенов
@@ -52,19 +52,22 @@ export type ChangeTodolistFilterActionType = {
 }
 
 
-export const todolistsReducer = (state: Array<TodolistType>, action: ActionsType) => {
+export const todolistsReducer = (state: Array<TodolistShortType>, action: ActionsType) => {
     switch (action.type) {
         case 'REMOVE-TODOLIST': {
             return state.filter(todolist => todolist.id !== action.id)
         }
+
         case 'ADD-TODOLIST': {
-            let todolistAdded: TodolistsType = {
+            let todolistAdded: TodolistShortType = {
                 id: v1(),
                 title: action.title,
                 filter: 'all'
+
             };
             return [...state, todolistAdded];
         }
+
         case 'CHANGE-TODOLIST-TITLE': {
             const todolist = state.find(tl => tl.id === action.id);
             if (todolist) {
