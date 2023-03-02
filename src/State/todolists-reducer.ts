@@ -1,6 +1,4 @@
-import {debug} from "console"
-import {TodolistType} from "../Todolist";
-import {FilterValuesType, TodolistShortType} from "../App";
+import {FilterValuesType, TodolistType} from "../App";
 import {v1} from "uuid";
 
 //заглушка до определения четкого перечня экшенов
@@ -14,19 +12,19 @@ type ActionsType =
     | ChangeTodolistTitleActionType
     | ChangeTodolistFilterActionType
 
-export const RemoveTodolistAC = (todolistId: string): RemoveTodolistActionType => {
+export const removeTodolistAC = (todolistId: string): RemoveTodolistActionType => {
     return {type: 'REMOVE-TODOLIST', id: todolistId}
 }
 
-export const AddTodolistAC = (title: string): AddTodolistActionType => {
+export const addTodolistAC = (title: string): AddTodolistActionType => {
     return {type: 'ADD-TODOLIST', title: title}
 }
 
-export const ChangeTodolistTitleAC = (todolistId: string, title: string): ChangeTodolistTitleActionType => {
+export const changeTodolistTitleAC = (todolistId: string, title: string): ChangeTodolistTitleActionType => {
     return {type: 'CHANGE-TODOLIST-TITLE' as const, id: todolistId, title: title}
 }
 
-export const ChangeTodolistFilterAC = (todolistId: string, filter: FilterValuesType): ChangeTodolistFilterActionType => {
+export const changeTodolistFilterAC = (todolistId: string, filter: FilterValuesType): ChangeTodolistFilterActionType => {
     return {type: 'CHANGE-TODOLIST-FILTER' as const, id: todolistId, filter: filter}
 }
 
@@ -52,14 +50,14 @@ export type ChangeTodolistFilterActionType = {
 }
 
 
-export const todolistsReducer = (state: Array<TodolistShortType>, action: ActionsType) => {
+export const todolistsReducer = (state: Array<TodolistType>, action: ActionsType) => {
     switch (action.type) {
         case 'REMOVE-TODOLIST': {
             return state.filter(todolist => todolist.id !== action.id)
         }
 
         case 'ADD-TODOLIST': {
-            let todolistAdded: TodolistShortType = {
+            let todolistAdded: TodolistType = {
                 id: v1(),
                 title: action.title,
                 filter: 'all'

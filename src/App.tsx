@@ -15,25 +15,25 @@ import Paper from "@mui/material/Paper";
 
 export type FilterValuesType = "all" | "active" | "completed";
 
-export type TodolistShortType = {
+export type TodolistType = {
     id: string
     title: string
     filter: FilterValuesType
 };
+
+export type TaskStateType = {
+    [key: string]: Array<TaskType>
+}
 
 function App() {
 
     let todolistId1 = v1();
     let todolistId2 = v1();
 
-    let [todolists, setTodolists] = useState<Array<TodolistShortType>>([
+    let [todolists, setTodolists] = useState<Array<TodolistType>>([
         {id: todolistId1, title: "What to learn", filter: 'all'},
         {id: todolistId2, title: "What to buy", filter: 'all'}
     ]);
-
-    type TaskStateType = {
-        [key: string]: Array<TaskType>
-    }
 
     let [tasksObj, setTasks] = useState<TaskStateType>({
         [todolistId1]: [
@@ -86,10 +86,8 @@ function App() {
 
     ////////////////////////////////
 
-
-
     function AddTodoList(title: string) {
-        let todolist: TodolistShortType = {
+        let todolist: TodolistType = {
             id: v1(),
             title: title,
             filter: 'all'
