@@ -57,7 +57,7 @@ export const addTodolistAC = (title: string): AddTodolistActionType => {
 }
 
 export const tasksReducer = (state: TasksStateType, action: ActionsType): TasksStateType => {
-
+    debugger
     switch (action.type) {
         case 'REMOVE-TASK': {
             const stateCopy = {...state}
@@ -107,8 +107,8 @@ export const tasksReducer = (state: TasksStateType, action: ActionsType): TasksS
             delete stateCopy[action.todolistId]
             return stateCopy
         }
-        default:
-            throw new Error(`Invalid action ${action}`)
+        // default:
+        //     throw new Error(`Invalid action ${action}`)
     }
 }
 

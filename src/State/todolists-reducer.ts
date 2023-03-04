@@ -60,9 +60,8 @@ export const todolistsReducer = (state: Array<TodolistType>, action: ActionsType
                 id: action.todolistId,
                 title: action.title,
                 filter: 'all'
-
             };
-            return [...state, todolistAdded];
+            return [todolistAdded, ...state];
         }
 
         case 'CHANGE-TODOLIST-TITLE': {
@@ -81,8 +80,8 @@ export const todolistsReducer = (state: Array<TodolistType>, action: ActionsType
             ;
             return [...state]
         }
-        default:
-            throw new Error(`Invalid action ${action}`)
+        // default:
+        //     throw new Error(`Invalid action ${action}`)
     }
 }
 
