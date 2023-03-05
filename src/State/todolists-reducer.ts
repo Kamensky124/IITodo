@@ -49,7 +49,19 @@ export const changeTodolistFilterAC = (todolistId: string, filter: FilterValuesT
     return {type: 'CHANGE-TODOLIST-FILTER' as const, id: todolistId, filter: filter}
 }
 
-export const todolistsReducer = (state: Array<TodolistType>, action: ActionsType) => {
+export let todolistId1 = v1();
+export let todolistId2 = v1();
+
+// const initialState: Array<TodolistType> = []
+
+const initialState: Array<TodolistType> = [
+    {id: todolistId1, title: "What to learn", filter: 'all'},
+    {id: todolistId2, title: "What to buy", filter: 'all'}
+]
+
+export const todolistsReducer = (state: Array<TodolistType> = initialState, action: ActionsType) =>
+{
+    // debugger
     switch (action.type) {
         case 'REMOVE-TODOLIST': {
             return state.filter(todolist => todolist.id !== action.todolistId)
@@ -80,7 +92,8 @@ export const todolistsReducer = (state: Array<TodolistType>, action: ActionsType
             ;
             return [...state]
         }
-        // default:
+        default:
+            return state
         //     throw new Error(`Invalid action ${action}`)
     }
 }

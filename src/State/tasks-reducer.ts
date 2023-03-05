@@ -1,6 +1,6 @@
 import {TasksStateType} from "../App";
 import {v1} from "uuid";
-import { RemoveTodolistActionType } from "./todolists-reducer";
+import {RemoveTodolistActionType, todolistId1, todolistId2} from "./todolists-reducer";
 
 type ActionsType =
     RemoveTaskActionType
@@ -56,8 +56,23 @@ export const addTodolistAC = (title: string): AddTodolistActionType => {
     return {type: 'ADD-TODOLIST', title, todolistId: v1()}
 }
 
-export const tasksReducer = (state: TasksStateType, action: ActionsType): TasksStateType => {
-    debugger
+const initialState: TasksStateType = {
+    [todolistId1]: [
+        {id: v1(), title: "HTML&CSS", isDone: true},
+        {id: v1(), title: "JS", isDone: true},
+        {id: v1(), title: "ReactJS", isDone: false},
+        {id: v1(), title: "Rest API", isDone: false},
+        {id: v1(), title: "GraphQL", isDone: false},
+    ],
+    [todolistId2]: [
+        {id: v1(), title: "Books", isDone: true},
+        {id: v1(), title: "Banana", isDone: false},
+        {id: v1(), title: "Skates", isDone: false}
+    ]
+}
+
+export const tasksReducer = (state: TasksStateType = initialState, action: ActionsType): TasksStateType => {
+    // debugger
     switch (action.type) {
         case 'REMOVE-TASK': {
             const stateCopy = {...state}
@@ -107,7 +122,8 @@ export const tasksReducer = (state: TasksStateType, action: ActionsType): TasksS
             delete stateCopy[action.todolistId]
             return stateCopy
         }
-        // default:
+        default:
+            return state
         //     throw new Error(`Invalid action ${action}`)
     }
 }
