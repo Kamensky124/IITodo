@@ -91,7 +91,6 @@ export const TodolistsList: React.FC = () => {
                                 changeTaskTitle={changeTaskTitle}
                                 changeTodolistTitle={changeTodolistTitle}
                             />
-                            <Login />
                         </Paper>
                     </Grid>
                 })
