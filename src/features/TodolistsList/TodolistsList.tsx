@@ -15,6 +15,7 @@ import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
 import {AddItemForm} from '../../components/AddItemForm/AddItemForm'
 import {Todolist} from './Todolist/Todolist'
+import {Login} from "features/Login/Login";
 
 
 export const TodolistsList: React.FC = () => {
@@ -90,6 +91,7 @@ export const TodolistsList: React.FC = () => {
                                 changeTaskTitle={changeTaskTitle}
                                 changeTodolistTitle={changeTodolistTitle}
                             />
+                            <Login />
                         </Paper>
                     </Grid>
                 })
