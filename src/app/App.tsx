@@ -28,7 +28,7 @@ function App() {
         dispatch(initializeAppTC())
     },[])
 
-    if (isInitialized) {
+    if (!isInitialized) {
         return <div
         style={{position:'fixed',top:'30%',textAlign:'center',width:'100%'}}>
             <CircularProgress/>

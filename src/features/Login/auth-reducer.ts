@@ -40,8 +40,13 @@ export const initializeAppTC = () => (dispatch: Dispatch<ActionsType>) => {
         })
         .catch((error) => {
             handleServerNetworkError(error, dispatch)
+
+        })
+        .finally(() => {
+            dispatch(setIsInitializedAC(true))
         })
 }
+
 
 export const loginTC = (data: LoginType) => (dispatch: Dispatch<ActionsType>) => {
     dispatch(setAppStatusAC('loading'))
@@ -64,8 +69,8 @@ export const loginTC = (data: LoginType) => (dispatch: Dispatch<ActionsType>) =>
 //     authAPI.logout()
 //         .then(res => {
 //             if (res.data.resultCode === 0) {
-//                 dispatch(setIsLoggedInAC(true))
-//                 dispatch(setAppStatusAC('succeeded'));
+//                 dispatch(setIsLoggedInAC(false))
+//                 dispatch(setAppStatusAC('succeeded'))
 //             } else {
 //                 handleServerAppError(res.data, dispatch)
 //             }
@@ -75,7 +80,9 @@ export const loginTC = (data: LoginType) => (dispatch: Dispatch<ActionsType>) =>
 //         })
 // }
 
+
 // types
 type ActionsType = ReturnType<typeof setIsLoggedInAC> |
-    ReturnType<typeof setIsInitializedAC> | SetAppStatusActionType |
+    ReturnType<typeof setIsInitializedAC> |
+    SetAppStatusActionType |
     SetAppErrorActionType
